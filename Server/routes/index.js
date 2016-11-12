@@ -59,23 +59,5 @@ router.get('/', function(req, res, next) {
 
 });
 
-// 다른 요약기에 비해 얼마나 성능 향상이 있었는지 확인하기 위함.
-router.get('/read', function(req, res, next) {
-  read('http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=104&sid2=232&oid=421&aid=0002379859', function(err, article, meta) {
-
-  // Title
-  console.log(article.title);
-  // Main Article
-  console.log(article.content);
-
-  res.json({
-    title : article.title,
-    content : article.content
-  }, function(){
-    // Close article to clean up jsdom and prevent leaks
-    article.close();
-  });
-});
-});
 
 module.exports = router;
