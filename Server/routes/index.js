@@ -24,8 +24,6 @@ router.get('/', function(req, res, next) {
       async.each(sentences, function(sentence_2, callback_2) {
         mecab.nouns(sentence, function(err, result) {
           mecab.nouns(sentence_2, function(err, result_2) {
-            console.log("result : " , result);
-            console.log("result2: " , result_2);
             var index = jaccard.index(result, result_2);
             sentenceSimilarity.push(index);
             callback_2();
@@ -39,9 +37,12 @@ router.get('/', function(req, res, next) {
     },
     // 3rd param is the function to call when everything's done
     function(err){
-      // All tasks are done now
+      // 그래프를 얻었으니 텍스트랭크를 돌린다.
       var Rank = ranker.getTextRank(graph).probabilityNodes;
+      // 가장 영향력이 큰 노드 세 개를 취한다.
       var selectedIndex = ranker.getSelectedIndex(Rank, 3);
+      // 문장의 순서대로 정렬하는 게 문맥상 자연스러운 듯.
+      selectedIndex.sort();
       var result = '';
       for(var i = 0; i < 3; i++){
         for(var j = 0; j < sentences.length; j++){
@@ -58,23 +59,5 @@ router.get('/', function(req, res, next) {
 
 });
 
-// 다른 요약기에 비해 얼마나 성능 향상이 있었는지 확인하기 위함.
-router.get('/read', function(req, res, next) {
-  read('http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=104&sid2=232&oid=421&aid=0002379859', function(err, article, meta) {
-
-  // Title
-  console.log(article.title);
-  // Main Article
-  console.log(article.content);
-
-  res.json({
-    title : article.title,
-    content : article.content
-  }, function(){
-    // Close article to clean up jsdom and prevent leaks
-    article.close();
-  });
-});
-});
 
 module.exports = router;
