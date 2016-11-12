@@ -45,16 +45,16 @@ router.get('/', function(req, res, next) {
       var selectedIndex = ranker.getSelectedIndex(Rank, 3);
       // 문장의 순서대로 정렬하는 게 문맥상 자연스러운 듯.
       selectedIndex.sort();
-      var result = '';
+      var result = [];
       for(var i = 0; i < 3; i++){
         for(var j = 0; j < sentences.length; j++){
           if(selectedIndex[i] === j){
-            result += sentences[j] + ' ';
+            result[i] = sentences[j];
           }
         }
       }
 
-      return res.render('index', { title: result });
+      return res.json({ shorten : result });
     }
   );
 
