@@ -14,7 +14,7 @@
     "jade": "~1.11.0",
     "mecab-ya": "^0.1.1",
     "morgan": "~1.7.0",
-    "multiset-jaccard": "^0.1.1",
+    "multiset-jaccard": "^0.1.2",
     "node-readability": "^2.2.0",
     "serve-favicon": "~2.3.0",
     "textrank-node": "^0.1.9"
