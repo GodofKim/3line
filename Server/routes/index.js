@@ -42,6 +42,8 @@ router.get('/', function(req, res, next) {
       // All tasks are done now
       var Rank = ranker.getTextRank(graph).probabilityNodes;
       var selectedIndex = ranker.getSelectedIndex(Rank, 3);
+      // 문장의 순서대로 정렬하는 게 문맥상 자연스러운 듯.
+      selectedIndex.sort();
       var result = '';
       for(var i = 0; i < 3; i++){
         for(var j = 0; j < sentences.length; j++){
