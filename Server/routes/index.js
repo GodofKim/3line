@@ -39,8 +39,9 @@ router.get('/', function(req, res, next) {
     },
     // 3rd param is the function to call when everything's done
     function(err){
-      // All tasks are done now
+      // 그래프를 얻었으니 텍스트랭크를 돌린다.
       var Rank = ranker.getTextRank(graph).probabilityNodes;
+      // 가장 영향력이 큰 노드 세 개를 취한다.
       var selectedIndex = ranker.getSelectedIndex(Rank, 3);
       // 문장의 순서대로 정렬하는 게 문맥상 자연스러운 듯.
       selectedIndex.sort();
