@@ -3,6 +3,7 @@ import './App.css';
 import axios from 'axios';
 import ReactSpinner from 'react-spinjs';
 import Header from './Components/Header';
+import {SERVER_URL} from './URL';
 
 class App extends Component {
   constructor(props){
@@ -22,7 +23,7 @@ class App extends Component {
   }
 
   fetchShorten() {
-    var URL = 'http://ec2-52-79-46-69.ap-northeast-2.compute.amazonaws.com:9000/';
+    var URL = SERVER_URL;
 
     var request = (tabs) => {
       chrome.tabs.executeScript( {
