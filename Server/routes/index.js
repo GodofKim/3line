@@ -24,8 +24,6 @@ router.get('/', function(req, res, next) {
       async.each(sentences, function(sentence_2, callback_2) {
         mecab.nouns(sentence, function(err, result) {
           mecab.nouns(sentence_2, function(err, result_2) {
-            console.log("result : " , result);
-            console.log("result2: " , result_2);
             var index = jaccard.index(result, result_2);
             sentenceSimilarity.push(index);
             callback_2();
