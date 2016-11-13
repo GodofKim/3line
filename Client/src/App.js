@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import logo from './logo.png';
 import './App.css';
 import axios from 'axios';
+import ReactSpinner from 'react-spinjs';
+import Header from './Components/Header';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      shorten : []
+      shorten : undefined
     };
 
     this.fetchShorten = this.fetchShorten.bind(this);
@@ -37,22 +38,26 @@ class App extends Component {
   printShorten() {
     if(this.state.shorten){
       return (
-        <div>
+        <div className="shorten">
           <p>1 : {this.state.shorten[0]}</p>
           <p>2 : {this.state.shorten[1]}</p>
           <p>3 : {this.state.shorten[2]}</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <ReactSpinner top="50%" left="50%"/>
         </div>
       );
     }
   }
 
   render() {
+
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <h2>Redesigned by 3Line</h2>
-        </div>
+        <Header />
         <div className="App-intro">
           {this.printShorten()}
         </div>

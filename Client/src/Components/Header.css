@@ -1,0 +1,42 @@
+.navbar {
+  height : 50px;
+  background-color: #F5C53A;
+  box-shadow: 0px 2px 8px #AAAAAA;
+}
+
+.right {
+  margin-right: 3%;
+}
+
+.left {
+  margin-left: 3%;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+
+  width : 60px;
+  height : 50px;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+li a {
+  text-decoration: none;
+  color : black;
+}
+
+#logo {
+  width : 42px;
+  padding-top: 4px;
+}
+
+.right {
+  top:0;
+  right: 0;
+}
