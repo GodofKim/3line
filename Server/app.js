@@ -56,8 +56,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(process.env.PORT||3000, function(){
-  console.log ("Server is running at 3000");
+var port = process.env.PORT || 4000;
+app.listen(port, function(){
+  console.log ("Server is running at " + port);
 });
 
 module.exports = app;
