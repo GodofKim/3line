@@ -13,9 +13,7 @@ class Header extends React.Component {
               <div className="navbar">
                 <ul id="nav-button">
                   <li>
-                    <a href="#">
                       <img id="logo" src={logo} />
-                    </a>
                   </li>
                 </ul>
 

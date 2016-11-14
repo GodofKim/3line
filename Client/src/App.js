@@ -42,6 +42,7 @@ class App extends Component {
           <p>1 : {this.state.shorten[0]}</p>
           <p>2 : {this.state.shorten[1]}</p>
           <p>3 : {this.state.shorten[2]}</p>
+          <p className="footer">Redesigned by 3Line</p>
         </div>
       );
     } else {
