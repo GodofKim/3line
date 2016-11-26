@@ -66,10 +66,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/hello', function (req, res, next) {
-  console.log(req.headers);
-
   read(req.headers.pageurl, function(err, article, meta) {
-    console.log(article.content);
+    console.log("What is the type of article.content : ", typeof(article.content));
+    console.log("Content : ", article.content);
     return res.json({ shorten: [req.headers.pageurl, "this is", "Awesome"] });
   });
 });
