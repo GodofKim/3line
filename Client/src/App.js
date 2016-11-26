@@ -20,21 +20,32 @@ class App extends Component {
   }
 
   fetchShorten() {
-    var URL = 'http://localhost:4000';
-    return axios.get(URL)
-    .then((response) => {
-      console.log(response);
-      this.setState({
-        shorten : response.data.shorten
-      });
-    })
-    .catch((error) => {
-      this.setState({
-        shorten : error
-      });
-    });
-  }
+    var URL = 'http://localhost:4000/hello';
 
+    var request = (tabs) => {
+      console.log(tabs[0].url);
+      axios({
+        method: 'get',
+        url: URL,
+        headers: {
+          pageurl : tabs[0].url
+        }
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          shorten : response.data.shorten
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          shorten : error
+        });
+      });
+    };
+
+    chrome.tabs.query({currentWindow: true, active: true}, request.bind(this));
+}
   printShorten() {
     if(this.state.shorten){
       return (
