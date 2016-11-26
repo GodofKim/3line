@@ -2,7 +2,7 @@
     "manifest_version": 2,
 
     "name": "3Line",
-    "description": "print html code.",
+    "description": "Simplify your life",
     "version": "1.0",
 
     "browser_action": {
@@ -15,8 +15,6 @@
       "128": "./icons/icon128.png"
     },
     "permissions": [
-        "tabs",
-        "<all_urls>",
         "activeTab"
     ]
 }
