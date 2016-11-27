@@ -1,1 +1,4 @@
 node_modules
+Server/yarn.lock
+Chrome-App/npm-debug.log
+Client/yarn.lock
