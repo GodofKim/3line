@@ -76,29 +76,35 @@ router.get('/hello', function (req, res, next) {
     else{
       text = article.textBody;
     }
-    var sentences = ranker.splitToSentences(text);
+
+    var lines = ranker.splitToSentences(text);
     var graph = [];
     // 1st para in async.each() is the array of items
-    async.each(sentences,
+    async.each(lines,
       // 2nd param is the function that each item is passed to
-      function(sentence, callback){
+      function(leftLine, finishLeft){
         // Call an asynchronous function, often a save() to DB
         var sentenceSimilarity = [];
 
-        async.each(sentences, function(sentence_2, callback_2) {
-          mecab.nouns(sentence, function(err, result) {
-            mecab.nouns(sentence_2, function(err, result_2) {
-              console.log("RESULT : ", result);
-              console.log("RESULT2 : ", result_2);
-              var index = jaccard.index(result, result_2);
+        async.each(lines, function(rightLine, finishRight) {
+          mecab.nouns("", function(err, leftNouns) {
+            mecab.nouns(rightLine, function(err, rightNouns) {
+              //console.log("RESULT : ", leftNouns);
+              //console.log("RESULT2 : ", rightNouns);
+              if(leftNouns === undefined)
+                leftNouns = [];
+              if(rightNouns === undefined)
+                rightNouns = [];
+
+              var index = jaccard.index(leftNouns, rightNouns);
               sentenceSimilarity.push(index);
-              callback_2();
+              finishRight();
             });
           });
         },
         function(err) {
           graph.push(sentenceSimilarity);
-          callback();
+          finishLeft();
         });
       },
       // 3rd param is the function to call when everything's done
@@ -111,9 +117,9 @@ router.get('/hello', function (req, res, next) {
         selectedIndex.sort();
         var result = [];
         for(var i = 0; i < 3; i++){
-          for(var j = 0; j < sentences.length; j++){
+          for(var j = 0; j < lines.length; j++){
             if(selectedIndex[i] === j){
-              result[i] = sentences[j];
+              result[i] = lines[j];
             }
           }
         }
