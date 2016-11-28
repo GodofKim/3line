@@ -122,16 +122,20 @@ router.get('/hello', function (req, res, next) {
         // 가장 영향력이 큰 노드 세 개를 취한다.
         var selectedIndex = getSelectedIndex(Rank, 3);
         // 문장의 순서대로 정렬하는 게 문맥상 자연스러운 듯.
-        selectedIndex.sort();
-        var result = [];
-        for(var i = 0; i < 3; i++){
-          for(var j = 0; j < lines.length; j++){
-            if(selectedIndex[i] === j){
-              result[i] = lines[j];
+        async.sortBy(selectedIndex, function(x, callback) {
+          callback(null, x);
+        }, function(err, sortedIndex) {
+          var result = [];
+
+          for(var i = 0; i < 3; i++){
+            for(var j = 0; j < lines.length; j++){
+              if(sortedIndex[i] === j){
+                result[i] = lines[j];
+              }
             }
           }
-        }
-        return res.json({ shorten : result });
+          return res.json({ shorten : result });
+        });
       }
     );
   });
