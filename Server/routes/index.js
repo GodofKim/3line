@@ -108,11 +108,10 @@ router.get('/hello', function (req, res, next) {
               sentenceSimilarity.push(index);
               finishRight();
             });
+          }, function(err) {
+            graph.push(sentenceSimilarity);
+            finishLeft();
           });
-        },
-        function(err) {
-          graph.push(sentenceSimilarity);
-          finishLeft();
         });
       },
       // 3rd param is the function to call when everything's done
