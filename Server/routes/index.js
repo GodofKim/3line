@@ -77,14 +77,13 @@ router.get('/hello', function (req, res, next) {
     var lines = ranker.splitToSentences(text);
     var graph = [];
     // 1st para in async.each() is the array of items
-    async.each(lines,
-      // 2nd param is the function that each item is passed to
-      function(leftLine, finishLeft){
+    async.eachSeries(lines, function(leftLine, finishLeft){
         // Call an asynchronous function, often a save() to DB
         var sentenceSimilarity = [];
 
-        async.each(lines, function(rightLine, finishRight) {
-          mecab.nouns("", function(err, leftNouns) {
+        mecab.nouns(leftLine, function(err, leftNouns) {
+          //console.log(leftNouns);
+          async.eachSeries(lines, function(rightLine, finishRight) {
             mecab.nouns(rightLine, function(err, rightNouns) {
               //console.log("RESULT : ", leftNouns);
               //console.log("RESULT2 : ", rightNouns);
