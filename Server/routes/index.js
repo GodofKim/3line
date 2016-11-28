@@ -62,6 +62,21 @@ router.get('/', function(req, res, next) {
 
 });
 
+function getSelectedIndex(textRank, max) {
+  var selectedIndex = [];
+  for(var i = 0; i < max; i++){
+    selectedIndex[i] = textRank.length - (i+1); // 매번 같은 인덱스를 기본으로 두면 문제가 생김.
+    for(var j = 0; j < textRank.length; j++){
+      if(textRank[selectedIndex[i]] < textRank[j]){
+        if(!selectedIndex.includes(j)){
+          selectedIndex[i] = j;
+        }
+      }
+    }
+  }
+  return selectedIndex;
+}
+
 router.get('/hello', function (req, res, next) {
   read(req.headers.pageurl, function(err, article, meta) {
 
@@ -105,7 +120,7 @@ router.get('/hello', function (req, res, next) {
         // 그래프를 얻었으니 텍스트랭크를 돌린다.
         var Rank = ranker.getTextRank(graph).probabilityNodes;
         // 가장 영향력이 큰 노드 세 개를 취한다.
-        var selectedIndex = ranker.getSelectedIndex(Rank, 3);
+        var selectedIndex = getSelectedIndex(Rank, 3);
         // 문장의 순서대로 정렬하는 게 문맥상 자연스러운 듯.
         selectedIndex.sort();
         var result = [];
