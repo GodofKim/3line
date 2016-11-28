@@ -82,11 +82,8 @@ router.get('/hello', function (req, res, next) {
         var sentenceSimilarity = [];
 
         mecab.nouns(leftLine, function(err, leftNouns) {
-          //console.log(leftNouns);
           async.eachSeries(lines, function(rightLine, finishRight) {
             mecab.nouns(rightLine, function(err, rightNouns) {
-              //console.log("RESULT : ", leftNouns);
-              //console.log("RESULT2 : ", rightNouns);
               if(leftNouns === undefined)
                 leftNouns = [];
               if(rightNouns === undefined)
