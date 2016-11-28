@@ -100,9 +100,9 @@ router.get('/hello', function (req, res, next) {
           async.eachSeries(lines, function(rightLine, finishRight) {
             mecab.nouns(rightLine, function(err, rightNouns) {
               if(leftNouns === undefined)
-                leftNouns = [];
+              { leftNouns = [""]; }
               if(rightNouns === undefined)
-                rightNouns = [];
+              { rightNouns = [""]; }
 
               jaccard.index(leftNouns, rightNouns, function(err, index) {
                 sentenceSimilarity.push(index);
