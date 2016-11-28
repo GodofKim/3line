@@ -104,9 +104,10 @@ router.get('/hello', function (req, res, next) {
               if(rightNouns === undefined)
                 rightNouns = [];
 
-              var index = jaccard.index(leftNouns, rightNouns);
-              sentenceSimilarity.push(index);
-              finishRight();
+              jaccard.index(leftNouns, rightNouns, function(err, index) {
+                sentenceSimilarity.push(index);
+                finishRight();
+              });
             });
           }, function(err) {
             graph.push(sentenceSimilarity);
