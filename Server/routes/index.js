@@ -7,8 +7,6 @@ var textrank = require('textrank-node');
 var ranker = new textrank();
 var async = require('async');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
 
 
   read(req.headers.pageurl, function(err, article, meta) {
