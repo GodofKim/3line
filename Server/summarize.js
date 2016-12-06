@@ -1,9 +1,7 @@
 var jaccard = require('multiset-jaccard');
 var mecab = require('mecab-ya');
-var textrank = require('textrank-node');
-var ranker = new textrank();
+var textranker = require('textranker');
 var async = require('async');
-var pagerank = require('pagerank-js');
 
 
 // 이건 하나의 문단 (문장들의 배열) 안에서 그래프를 구하는 것임
@@ -79,14 +77,12 @@ function getSelectedIndex(textRank, max) {
 module.exports = {
   summarize: function(lines, callback){
     getGraph(lines, function(err, graph){
-      pagerank(graph, 0.85, 0.0001, function (err, result) {
-        if (err) throw new Error(err);
-        console.log(result);
+      console.log("getGraph finish");
+      textranker(graph, 0.85, 0.0001, function(result){
+        // 에러 처리를 안 했네
         var selectedIndex = getSelectedIndex(result, 3);
         getSelectedLines(lines, selectedIndex, callback);
       });
-      //var Rank = ranker.getTextRank(graph).probabilityNodes;
-
     });
   }
 };
