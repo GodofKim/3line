@@ -8,11 +8,13 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
+      title : undefined,
       shorten : undefined
     };
 
     this.fetchShorten = this.fetchShorten.bind(this);
     this.printShorten = this.printShorten.bind(this);
+    this.printTitle = this.printTitle.bind(this);
   }
 
   componentDidMount(){
@@ -34,11 +36,13 @@ class App extends Component {
       .then((response) => {
         console.log(response);
         this.setState({
+          title : response.data.title,
           shorten : response.data.shorten
         });
       })
       .catch((error) => {
         this.setState({
+          title : error,
           shorten : error
         });
       });
@@ -65,12 +69,22 @@ class App extends Component {
     }
   }
 
+  printTitle() {
+    if(this.state.title){
+      return (
+        <div className="title">
+          <h3>{this.state.title}</h3>
+        </div>
+      );
+    }
+  }
 
   render() {
     return (
       <div className="App">
         <Header />
         <div className="App-intro">
+          {this.printTitle()}
           {this.printShorten()}
         </div>
       </div>
