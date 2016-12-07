@@ -4,13 +4,15 @@ var readability = require('../readability');
 var summarize = require('../summarize');
 
 router.get('/hello', function (req, res, next) {
-  readability.refine(req.headers.pageurl, function(lines) {
-    summarize.summarize(lines, function(summarized){
-      return res.json({ shorten: summarized});
-    });
-  });
-});
-
+  readability.getText(req.headers.pageurl, function(title, article){
+    readability.refine(article, function(refinedText){
+      summarize.summarize(refinedText, function(summarized){
+        var content = {
+          title: title,
+          shorten: summarized
+        };
+        console.log(content);
+        return res.json(content);
       });
     });
   });

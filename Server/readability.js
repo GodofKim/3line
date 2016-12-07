@@ -67,7 +67,7 @@ function splitToSentences (paragraphs, callback) {
 }
 
 module.exports = {
-  refine: function(url, callback){
+  getText: function(url, callback){
     read(url, function(err, article, meta) {
       var text = "";
       if(url.includes("news.naver")){
@@ -78,7 +78,11 @@ module.exports = {
       else{
         text = article.textBody;
       }
-      refineText(text, callback);
+      var title = article.title;
+      callback(title, text);
     });
+  },
+  refine: function(text, callback){
+    refineText(text, callback);
   }
 };
