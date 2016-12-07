@@ -43,9 +43,9 @@ class App extends Component {
         });
       });
     };
-
     chrome.tabs.query({currentWindow: true, active: true}, request.bind(this));
-}
+  }
+
   printShorten() {
     if(this.state.shorten){
       return (
@@ -65,8 +65,8 @@ class App extends Component {
     }
   }
 
-  render() {
 
+  render() {
     return (
       <div className="App">
         <Header />
