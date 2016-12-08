@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   fetchShorten() {
-    var URL = 'http://localhost:4000/hello';
+    var URL = 'http://localhost:4000/';
 
     var request = (tabs) => {
       console.log(tabs[0].url);
