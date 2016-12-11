@@ -10,7 +10,7 @@ function refineText(text, next) {
       text = text.replace(/\[[^\]]+\]/g, '');
       text = text.replace(/\S+@\S+\.\S+/, ''); // 이메일 제거
       text = text.replace(/\S+@\S+\.\S+\.\S+/, '');
-
+      text = text.replace(/사진.*=.*뉴스/, '');
       callback(null, text);
     },
     function(text, callback) { // 문단으로 분리
