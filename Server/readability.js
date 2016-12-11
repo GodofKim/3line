@@ -69,11 +69,17 @@ function splitToSentences (paragraphs, callback) {
 module.exports = {
   getText: function(url, callback){
     read(url, function(err, article, meta) {
+      if(err) throw err;
+
       var text = "";
       if(url.includes("news.naver")){
         var dom = article.document;
         //<br> 사이에 있는 것들만 각각 문단으로 가져오게 하기
-        text = dom.getElementById("articleBodyContents").textContent;
+        if(dom.getElementById("articleBodyContents")){
+          text = dom.getElementById("articleBodyContents").textContent;
+        }else {
+          text = article.textBody;
+        }
       }
       else{
         text = article.textBody;
