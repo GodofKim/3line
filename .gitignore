@@ -2,3 +2,5 @@ node_modules
 Server/yarn.lock
 Chrome-App/npm-debug.log
 Client/yarn.lock
+app.yaml
+Server/npm-debug.log
