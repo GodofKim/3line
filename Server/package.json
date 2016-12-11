@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "monitor": "nodemon app.js",
+    "monitor": "nodemon app.js"
   },
   "author": "Godof Kim",
   "dependencies": {
