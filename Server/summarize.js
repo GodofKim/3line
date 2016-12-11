@@ -7,34 +7,38 @@ var async = require('async');
 // 이건 하나의 문단 (문장들의 배열) 안에서 그래프를 구하는 것임
 function getGraph (lines, callback) {
   var graph = [];
-  // 1st para in async.each() is the array of items
-  async.eachSeries(lines, function(leftLine, finishLeft){
-      // Call an asynchronous function, often a save() to DB
-      var sentenceSimilarity = [];
-      mecab.nouns(leftLine, function(err, leftNouns) {
-        async.eachSeries(lines, function(rightLine, finishRight) {
-          mecab.nouns(rightLine, function(err, rightNouns) {
-            if(leftNouns === undefined)
-            { leftNouns = [""]; }
-            if(rightNouns === undefined)
-            { rightNouns = [""]; }
-
-            jaccard.index(leftNouns, rightNouns, function(err, index) {
-              sentenceSimilarity.push(index);
-              finishRight();
-            });
+  var nodes = [];
+  // 각 문장에서 명사를 추출하여 노드 n개 생성
+  async.eachSeries(lines, function(line, finish){
+    setTimeout(function() {
+      mecab.nouns(line, function(err, nouns){
+        if(nouns === undefined){
+          nouns = [""];
+        }
+        nodes.push(nouns);
+        finish();
+      });
+    }, 0);
+  }, function(err){
+    // 유사도를 측정하여 그래프 생성
+    var similarity = [];
+    async.eachSeries(nodes, function(leftNode, finishLeft){
+      setTimeout(function() {
+        async.eachSeries(nodes, function(rightNode, finishRight){
+          jaccard.index(leftNode, rightNode, function(err, index){
+            similarity.push(index);
+            finishRight();
           });
-        }, function(err) {
-          graph.push(sentenceSimilarity);
+        }, function(err){
+          if(err) throw err;
+          graph.push(similarity);
           finishLeft();
         });
-      });
-    },
-    // 3rd param is the function to call when everything's done
-    function(err){
-      callback(err, graph);
-    }
-  );
+      }, 0);
+    }, function(err){
+      callback(err,graph);
+    });
+  });
 }
 
 function getSelectedLines(lines, selectedIndex, callback){

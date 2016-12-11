@@ -1,10 +1,12 @@
 {
-  "name": "server",
+  "name": "3line-server",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node app.js",
+    "monitor": "nodemon app.js",
   },
+  "author": "Godof Kim",
   "dependencies": {
     "async": "^2.1.2",
     "body-parser": "~1.15.1",
@@ -15,9 +17,9 @@
     "jade": "~1.11.0",
     "mecab-ya": "^0.1.1",
     "morgan": "~1.7.0",
-    "multiset-jaccard": "^0.1.2",
+    "multiset-jaccard": "^0.1.8",
     "node-readability": "^2.2.0",
     "serve-favicon": "~2.3.0",
-    "textranker": "^1.0.0"
+    "textranker": "^1.0.2"
   }
 }

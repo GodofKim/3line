@@ -42,7 +42,7 @@ class App extends Component {
       })
       .catch((error) => {
         this.setState({
-          title : error,
+          title : "서버 오류 발생",
           shorten : error
         });
       });
