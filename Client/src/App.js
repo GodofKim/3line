@@ -22,31 +22,55 @@ class App extends Component {
   }
 
   fetchShorten() {
-    var URL = 'http://localhost:4000/';
+    var URL = 'http://ec2-52-79-46-69.ap-northeast-2.compute.amazonaws.com:9000/';
 
     var request = (tabs) => {
-      console.log(tabs[0].url);
-      axios({
-        method: 'get',
-        url: URL,
-        headers: {
-          pageurl : tabs[0].url
+      chrome.tabs.executeScript( {
+        code: "window.getSelection().toString();"
+      }, (function(selection) {
+        var API = "";
+        var method = "";
+        var headers = {
+          "Content-Type":"application/json"
+        };
+        var body = {};
+
+        if(selection[0]){
+          API = URL + "highlight";
+          method = "post";
+          body.text = selection[0];
+          console.log(selection);
+        }else{
+          console.log(tabs[0].url);
+          API = URL;
+          method = "get";
+          headers.pageurl = tabs[0].url;
         }
-      })
-      .then((response) => {
-        console.log(response);
-        this.setState({
-          title : response.data.title,
-          shorten : response.data.shorten
+
+        axios({
+          method: method,
+          url: API,
+          headers: headers,
+          data: body
+        })
+        .then((response) => {
+          console.log(response);
+          this.setState({
+            title : response.data.title,
+            shorten : response.data.shorten
+          });
+        })
+        .catch((error) => {
+          throw error;
+          this.setState({
+            title : "서버 오류 발생",
+            shorten : error
+          });
         });
-      })
-      .catch((error) => {
-        this.setState({
-          title : "서버 오류 발생",
-          shorten : error
-        });
-      });
+      }).bind(this));
     };
+
+
     chrome.tabs.query({currentWindow: true, active: true}, request.bind(this));
   }
 
