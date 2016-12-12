@@ -1,8 +1,13 @@
+<img src="/Sample/Logo.png" width="240">
 # 3Line
+
+#What is 3Line
+3Line makes an article into three lines. Install chrome app and run server so that It works.
+- Only korean supported.
 
 ##Server Installation
 
-- For korean word analyzing
+- For korean word analyzer
 ```
 // go to Server directory and type this into command
 $ node_modules/mecab-ya/bin/install-mecab ko
