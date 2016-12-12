@@ -1,7 +1,7 @@
 <img src="/Sample/Logo.png" width="240">
 # 3Line
 
-#What is 3Line
+##What is 3Line
 3Line makes an article into three lines. Install chrome app and run server so that It works.
 - Only korean supported.
 
