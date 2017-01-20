@@ -32,6 +32,7 @@ function getGraph (lines, callback) {
         }, function(err){
           if(err) throw err;
           graph.push(similarity);
+          similarity = [];
           finishLeft();
         });
       }, 0);
