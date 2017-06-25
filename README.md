@@ -1,11 +1,14 @@
 <img src="/Sample/Logo.png" width="240">
+
 # 3Line
 
-##What is 3Line
-3Line makes an article into three lines. Install chrome app and run server so that It works.
+## What is 3Line
+
+3Line makes an article into **just three lines**. 
+Install chrome app and run server so that It works.
 - Only korean supported.
 
-##Server Installation
+## Server Installation
 
 - For korean word analyzer
 ```
@@ -20,11 +23,12 @@ it takes quite long time.
 $ node app.js
 ```
 
-##Chrome Extension Installation
+## Chrome Extension Installation
 
 1. Go to the setting page of chrome. (chrome://extensions)
 2. Click the button "Load unzipped extension"
 3. Add 3line. (Chrome-App directory)
+4. Go to any page that has long long texts and execute the chrome app.
 
-##Screen Shot
+## Screen Shot
 ![3line screen shot](/Sample/Screenshot1.png)
